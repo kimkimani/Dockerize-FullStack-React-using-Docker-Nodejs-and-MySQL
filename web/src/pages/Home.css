@@ -1,0 +1,39 @@
+.styled-table{
+    border-collapse: collapse;
+    margin: auto;
+    font-size: 0.9em;
+    font-family: sans-serif;
+    max-width: 800px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.15);
+}
+
+
+
+.btn{
+    border: 2px dotted;
+    padding: 5px 8px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    border-radius: 5px;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer; 
+}
+
+.btn-edit{
+    color: #008cba;
+}
+
+.btn-delete{
+    color: #f44336;
+}
+
+.btn-view{
+    color: #131212;
+}
+
+.btn-contact{
+    color: #27e877;
+    margin-bottom: 10px;
+}

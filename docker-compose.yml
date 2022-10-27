@@ -1,0 +1,53 @@
+version: '3.8'
+services:
+  mysql_srv:
+    image: mysql:8.0
+    container_name: mysql_ctr
+    restart: always
+    environment:
+      MYSQL_DATABASE: contacts
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "3307:3306"
+    volumes:
+      - ./data:/var/lib/mysql
+      - ./conf:/etc/mysql/conf.d
+      - ./logs:/logs
+
+  phpmyadmin_srv:
+    depends_on:
+      - mysql_srv
+    image: phpmyadmin/phpmyadmin
+    container_name: phpadmin_ctr
+    restart: always
+    environment:
+      PMA_HOST: mysql_srv
+    ports:
+      - 8080:80
+
+  backend_srv:
+    build: 
+      context: ./api
+    depends_on:
+      - mysql_srv
+    environment:
+      MYSQL_HOST_IP: mysql_srv
+      MYSQL_USER: root
+      MYSQL_DATABASE: contacts
+      MYSQL_PASSWORD: root
+    ports:
+      - 5000:5000
+    volumes:
+      - ./api:/api
+
+  frontend_srv:
+    build: 
+      context: ./web
+    ports:
+      - 3000:80
+    volumes:
+      - ./web:/web
+
+volumes:
+  mysql_srv:
+    driver: local
